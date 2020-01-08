@@ -105,7 +105,7 @@ def sql_from_config(config: SqlConfig, **schemas) -> SqlState:
     url_params = config.dict(exclude={"tls"})
     url = URL("postgresql", **url_params)
     connect_args = config.tls.to_connect_args() if config.tls else {}
-    engine = create_engine(url, connect_args=connect_args)
+    engine = create_engine(url, pool_size=1, max_overflow=0, echo_pool="debug", connect_args=connect_args)
     return SqlState(engine, **schemas)
 
 
