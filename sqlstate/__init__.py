@@ -30,6 +30,8 @@ class SqlConfig(BaseModel):
     database: str
     username: str
     password: str
+    engine_args: dict = {}
+    async_engine_args: dict = {}
     tls: Optional[SqlTlsConfig]
 
 
@@ -98,19 +100,21 @@ class AsyncSqlState:
             yield SqlConnection(c, **vars(self.s))
 
 
-def sql_from_config(config: SqlConfig, **schemas) -> SqlState:
+def sql_from_config(config: SqlConfig, engine_args={}, **schemas) -> SqlState:
     """
     Use the SqlConfig object to create an `SqlState`
     """
-    url_params = config.dict(exclude={"tls"})
+    url_params = config.dict(exclude={"tls", "engine_args", "async_engine_args"})
     url = URL("postgresql", **url_params)
     connect_args = config.tls.to_connect_args() if config.tls else {}
-    engine = create_engine(url, connect_args=connect_args)
+    engine = create_engine(
+        url, **{**config.engine_args, **engine_args}, connect_args=connect_args
+    )
     return SqlState(engine, **schemas)
 
 
 @asynccontextmanager
-async def asql_from_config(config: SqlConfig, **schemas):
+async def asql_from_config(config: SqlConfig, engine_args={}, **schemas):
     connect_args = config.tls.to_connect_args() if config.tls else {}
     async with aio.create_engine(
         host=config.host,
@@ -118,6 +122,7 @@ async def asql_from_config(config: SqlConfig, **schemas):
         user=config.username,
         password=config.password,
         dbname=config.database,
+        **{**config.async_engine_args, **engine_args},
         **connect_args,
     ) as engine:
         sql_state = sql_from_config(config, **schemas)
@@ -125,13 +130,14 @@ async def asql_from_config(config: SqlConfig, **schemas):
 
 
 @asynccontextmanager
-async def asql_from_engine(engine: Engine, **schemas):
+async def asql_from_engine(engine: Engine, engine_args={}, **schemas):
     async with aio.create_engine(
         host=engine.url.host,
         port=engine.url.port,
         user=engine.url.username,
         password=engine.url.password,
         dbname=engine.url.database,
+        **engine_args,
     ) as aengine:
         sql_state = SqlState(engine, **schemas)
         yield AsyncSqlState(aengine, sql_state.s)
