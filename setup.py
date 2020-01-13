@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="sqlstate",
-    version="0.0.1",
+    version="0.0.5",
     author="Gastromatic",
     author_email="n.dittmann@gastromatic.de",
     description="Convenient SQL operations and reflections using sqlalchemy core",
