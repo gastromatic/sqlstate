@@ -83,6 +83,12 @@ class SqlState:
         self.engine = engine
         self.s = _make_schema_namespace(engine, **schemas)
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.engine.dispose()
+
     @contextmanager
     def connect(self, **kwargs):
         with self.engine.connect(**kwargs) as c:
@@ -93,6 +99,12 @@ class AsyncSqlState:
     def __init__(self, engine: aio.Engine, schemas_namespace):
         self.engine = engine
         self.s = schemas_namespace
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.engine.close()
 
     @asynccontextmanager
     async def acquire(self, **kwargs):
