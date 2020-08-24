@@ -14,7 +14,7 @@ sqlalchemy core, without using the sqlalchemy ORM.
 Say we have a database with existing schema `data` which contains
 a table `users`. We can create the sql_state with:
 
-```
+```python
 from sqlstate import SqlConfig, sql_from_config
 
 config = {
@@ -34,7 +34,7 @@ it accessible as `sqlstate.s.my_schema`. It is possible to reflect
 multiple schemas in this way by adding further keyword arguments.
 
 The sqlalchemy Table object for the `users` table is accessible as
-```
+```python
 sqlstate.s.my_schema.users
 ```
 
@@ -51,7 +51,7 @@ can be aquired by `sql_state.acquire()`.
 There is also an `AsyncSqlState` and a function `asql_from_config`,
 which create an async sqlstate. A connection aquired from this state
 can eg. be used as follows:
-```
+```python
 async with sql_state.acquire() as conn:
     await conn.execute(some_query)
 ```
