@@ -11,17 +11,20 @@ from sqlalchemy.engine.url import URL
 
 
 class SqlTlsConfig(BaseModel):
-    serverCa: FilePath
-    clientCert: FilePath
-    clientKey: FilePath
+    serverCa: Optional[FilePath]
+    clientCert: Optional[FilePath]
+    clientKey: Optional[FilePath]
+    sslmode: str = "verify-ca"
 
     def to_connect_args(self):
-        return {
-            "sslmode": "verify-ca",
-            "sslcert": self.clientCert,
-            "sslkey": self.clientKey,
-            "sslrootcert": self.serverCa,
-        }
+        connect_params = {"sslmode": self.sslmode}
+        if self.clientCert is not None:
+            connect_params["sslcert"] = self.clientCert
+        if self.clientKey is not None:
+            connect_params["sslkey"] = self.clientKey
+        if self.serverCa is not None:
+            connect_params["sslrootcert"] = self.serverCa
+        return connect_params
 
 
 class SqlConfig(BaseModel):
