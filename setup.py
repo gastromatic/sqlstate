@@ -17,7 +17,7 @@ setuptools.setup(
     python_requires=">=3.5",
     install_requires=[
         "sqlalchemy>=1.3.0",
-        "aiopg@git+https://github.com/gastromatic/aiopg@7c4d828",
+        "aiopg>=1.3.0",
         "pydantic>=1.2",
     ],
     license="MIT",
