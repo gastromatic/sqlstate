@@ -5,9 +5,9 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="sqlstate",
-    version="0.0.1",
+    version="1.0.0",
     author="Gastromatic",
-    author_email="n.dittmann@gastromatic.de",
+    author_email="f.weis@gastromatic.com",
     description="Convenient SQL operations and reflections using sqlalchemy core",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -16,9 +16,8 @@ setuptools.setup(
     package_data={"sqlstate": ["*.yml"]},
     python_requires=">=3.5",
     install_requires=[
-        "sqlalchemy>=1.3.0",
-        "aiopg>=1.3.0",
-        "pydantic>=1.2",
+        "sqlalchemy>=2.0.0",
+        "pydantic>=2.4.1",
     ],
     license="MIT",
     classifiers=[
