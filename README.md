@@ -52,6 +52,6 @@ There is also an `AsyncSqlState` and a function `asql_from_config`,
 which create an async sqlstate. A connection aquired from this state
 can eg. be used as follows:
 ```python
-async with sql_state.acquire() as conn:
+async with sql_state.connect() as conn:
     await conn.execute(some_query)
 ```
