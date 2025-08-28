@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sqlstate"
+version = "1.0.0"
+description = "Convenient SQL operations and reflections using sqlalchemy core"
+readme = "README.md"
+requires-python = ">=3.5"
+license = { text = "MIT" }
+authors = [
+  { name = "Gastromatic", email = "f.weis@gastromatic.com" },
+]
+keywords = ["sqlalchemy", "database"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Development Status :: 4 - Beta",
+  "Operating System :: OS Independent",
+]
+
+dependencies = [
+  "sqlalchemy>=2.0.0",
+  "pydantic>=2.4.1",
+]
+
+[tool.setuptools.packages.find]
+include = ["sqlstate"]
+
+[tool.setuptools.package-data]
+sqlstate = ["*.yml"]
