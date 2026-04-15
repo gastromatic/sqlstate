@@ -3,7 +3,7 @@
     "github>gastromatic/renovate-config"
   ],
   "reviewers": [
-    "team:interfaces"
+    "team:business-system-integrations"
   ],
   "reviewersSampleSize": 2
 }
