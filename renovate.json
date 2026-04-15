@@ -1,0 +1,9 @@
+{
+  "extends": [
+    "github>gastromatic/renovate-config"
+  ],
+  "reviewers": [
+    "team:interfaces"
+  ],
+  "reviewersSampleSize": 2
+}
