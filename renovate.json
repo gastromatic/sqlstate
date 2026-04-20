@@ -1,9 +1,5 @@
 {
   "extends": [
-    "github>gastromatic/renovate-config"
-  ],
-  "reviewers": [
-    "team:business-system-integrations"
-  ],
-  "reviewersSampleSize": 2
+    "github>gastromatic/bsi-renovate-config"
+  ]
 }
