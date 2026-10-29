@@ -1,0 +1,5 @@
+*                   @gastromatic/business-system-integrations
+/.github/           @gastromatic/technical
+release.config.js   @gastromatic/technical
+/cicd/              @gastromatic/technical
+/charts/            @gastromatic/technical
